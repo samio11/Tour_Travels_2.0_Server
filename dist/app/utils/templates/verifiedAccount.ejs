@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Verified - <%= companyName %></title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f9fb;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        background-color: #ffffff;
+        margin: 20px auto;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        background: linear-gradient(135deg, #4caf50, #2e7d32);
+        padding: 20px;
+        text-align: center;
+        color: white;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 26px;
+      }
+      .content {
+        padding: 25px;
+        text-align: center;
+      }
+      .content h2 {
+        color: #4caf50;
+      }
+      .icon {
+        font-size: 50px;
+        color: #4caf50;
+        margin-bottom: 10px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        margin-top: 20px;
+        background-color: #4caf50;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+      }
+      .btn:hover {
+        background-color: #388e3c;
+      }
+      .footer {
+        background-color: #f1f1f1;
+        padding: 15px;
+        font-size: 12px;
+        text-align: center;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>Account Verified 🎉</h1>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <div class="icon">✅</div>
+        <h2>Hi <%= name %>, your account is now verified!</h2>
+        <p>
+          Welcome officially to <strong><%= companyName %></strong>! You can now
+          log in and start exploring our travel packages, deals, and
+          destinations.
+        </p>
+
+        <a href="<%= loginUrl %>" class="btn">Login Now</a>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>
+          © <%= new Date().getFullYear() %> <%= companyName %>. All rights
+          reserved.<br />
+          You are receiving this email because you registered on our website.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -5,6 +5,7 @@ const express_1 = require("express");
 const otp_routes_1 = require("../modules/otp/otp.routes");
 const auth_routes_1 = require("../modules/auth/auth.routes");
 const user_routes_1 = require("../modules/user/user.routes");
+const division_routes_1 = require("../modules/division/division.routes");
 exports.rootRouter = (0, express_1.Router)();
 const moduleRoutes = [
     {
@@ -18,6 +19,10 @@ const moduleRoutes = [
     {
         path: "/user",
         element: user_routes_1.userRouter,
+    },
+    {
+        path: "/division",
+        element: division_routes_1.divisionRoutes,
     },
 ];
 moduleRoutes.forEach((x) => exports.rootRouter.use(x.path, x.element));

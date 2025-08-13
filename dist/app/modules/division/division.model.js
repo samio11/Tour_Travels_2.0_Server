@@ -23,7 +23,7 @@ divisionSchema.pre("save", function (next) {
             const baseSlug = this.name.toLocaleLowerCase().split(" ").join("-");
             let slug = `${baseSlug}-division`;
             let counter = 0;
-            if (yield exports.Division.exists({ slug })) {
+            while (yield exports.Division.exists({ slug })) {
                 slug = `${slug}-${counter++}`;
             }
             this.slug = slug;

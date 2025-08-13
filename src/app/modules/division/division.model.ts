@@ -13,7 +13,7 @@ divisionSchema.pre("save", async function (next) {
     const baseSlug = this.name.toLocaleLowerCase().split(" ").join("-");
     let slug = `${baseSlug}-division`;
     let counter = 0;
-    if (await Division.exists({ slug })) {
+    while (await Division.exists({ slug })) {
       slug = `${slug}-${counter++}`;
     }
     this.slug = slug;

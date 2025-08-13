@@ -19,6 +19,7 @@ export const checkAuth =
         config.JWT_ACCESS_TOKEN as string
       ) as JwtPayload;
       const existUser = await User.findOne({ email: verifiedToken.email });
+      //   console.log(existUser);
       if (!existUser) {
         throw new AppError(401, "User Not Found");
       }
@@ -39,6 +40,7 @@ export const checkAuth =
       }
 
       req.user = verifiedToken;
+      //   console.log(req.user);
       next();
     } catch (err) {
       next(err);

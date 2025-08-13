@@ -27,6 +27,7 @@ const checkAuth = (...authRoles) => (req, res, next) => __awaiter(void 0, void 0
         }
         const verifiedToken = (0, jwt_1.verifyToken)(token, config_1.default.JWT_ACCESS_TOKEN);
         const existUser = yield user_model_1.User.findOne({ email: verifiedToken.email });
+        //   console.log(existUser);
         if (!existUser) {
             throw new AppError_1.AppError(401, "User Not Found");
         }
@@ -44,6 +45,7 @@ const checkAuth = (...authRoles) => (req, res, next) => __awaiter(void 0, void 0
             throw new AppError_1.AppError(401, "Access Denied,You are not permitted");
         }
         req.user = verifiedToken;
+        //   console.log(req.user);
         next();
     }
     catch (err) {

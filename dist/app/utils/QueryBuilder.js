@@ -17,7 +17,7 @@ class QueryBuilder {
     }
     search(searchableFields) {
         var _a;
-        const searchTerm = (_a = this === null || this === void 0 ? void 0 : this.query) === null || _a === void 0 ? void 0 : _a.searchTerm;
+        const searchTerm = ((_a = this === null || this === void 0 ? void 0 : this.query) === null || _a === void 0 ? void 0 : _a.searchTerm) || "";
         const searchQuery = {
             $or: searchableFields.map((x) => ({
                 [x]: { $regex: searchTerm, $options: "i" },

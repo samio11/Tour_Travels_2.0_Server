@@ -7,6 +7,7 @@ const auth_routes_1 = require("../modules/auth/auth.routes");
 const user_routes_1 = require("../modules/user/user.routes");
 const division_routes_1 = require("../modules/division/division.routes");
 const tour_routes_1 = require("../modules/tour/tour.routes");
+const booking_route_1 = require("../modules/booking/booking.route");
 exports.rootRouter = (0, express_1.Router)();
 const moduleRoutes = [
     {
@@ -28,6 +29,10 @@ const moduleRoutes = [
     {
         path: "/tour",
         element: tour_routes_1.tourRoutes,
+    },
+    {
+        path: "/booking",
+        element: booking_route_1.bookingRoutes,
     },
 ];
 moduleRoutes.forEach((x) => exports.rootRouter.use(x.path, x.element));

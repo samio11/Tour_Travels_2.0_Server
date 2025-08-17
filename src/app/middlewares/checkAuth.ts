@@ -10,7 +10,7 @@ export const checkAuth =
   (...authRoles: string[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const token = req?.headers?.authorization;
+      const token = req?.headers?.authorization || req.cookies.accessToken;
       if (!token) {
         throw new AppError(401, "Token is not found");
       }

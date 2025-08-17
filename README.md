@@ -1,47 +1,157 @@
-# Tour Travels 2.0 - Backend API
+# Tour Travels 2.0 Server  
 
-![Version](https://img.shields.io/badge/Version-2.0-brightgreen) ![Node.js](https://img.shields.io/badge/Node.js-v20-blue) ![Express.js](https://img.shields.io/badge/Express.js-v4.18-green) ![MongoDB](https://img.shields.io/badge/MongoDB-v8-yellow) ![License](https://img.shields.io/badge/License-ISC-red)
-![tour1](https://github.com/user-attachments/assets/7ed0327f-f167-4fcf-8be7-6f4c46f54a75)
+A **full‑stack Node.js/TypeScript** back‑end for a tour‑booking platform. It provides a **RESTful API** that handles users, tours, bookings, payments, OTP verification, and image uploads, all with solid error handling, authentication, and role‑based access control.
 
+---
 
-Welcome to **Tour Travels 2.0**, a powerful and scalable backend API designed to support a modern tour booking platform. This API provides comprehensive functionality for user authentication, tour management, booking creation, secure payment processing, and administrative tasks. Built with security, performance, and developer experience in mind, it leverages modern technologies to deliver a seamless experience for travelers, developers, and administrators.
+## ✨ What the repo offers  
 
-Whether you're building a frontend travel application or managing tour operations, this API serves as a robust foundation for creating unforgettable travel experiences.
+| Feature | Description |
+|---------|-------------|
+| **Modular Architecture** | Separate `modules` for **auth, user, tour, division, booking, payment, OTP,** and **SSL‑Commerz** integration. |
+| **TypeScript** | Strongly‑typed codebase, interfaces and enums for models and services. |
+| **Authentication & Authorization** | JWT‑based auth with Passport strategy and role‑based `checkAuth` middleware (SUPER_ADMIN, ADMIN, USER, GUIDE). |
+| **File Uploads** | `multer‑storage‑cloudinary` integration for uploading and deleting images on Cloudinary. |
+| **Payment Flow** | `Payment` model + `sslCommerz` service for initializing, success, failure & cancellation callbacks. |
+| **OTP Service** | Send/verify OTP emails (useful for registration & password reset). |
+| **Error Handling** | Centralized error handling (AppError, Cast, Duplicate, Validation, Zod) with `globalErrorHandler`. |
+| **Utilities** | `catchAsync`, `sendResponse`, cookie helpers, JWT utilities, query‑builder helpers, and a Redis client wrapper. |
+| **Testing** | Ready to be used with Postman collection (`Tour Travels 2.0.postman_collection.json`). |
+| **Deployable** | `vercel.json` ready for Vercel serverless deployment (`src/server.ts`). |
 
+---
 
+## 🗂️ Repository structure (high‑level)
 
-## Features
-- **Secure Authentication**: Supports JWT-based login, OTP email verification, password management, and role-based access (User, Admin, Super Admin).
-- **Tour Management**: Create, retrieve, and manage tour types and individual tours with details like title, slug, cost, and division associations.
-- **Booking System**: Enables users to create, view, and delete bookings with guest count support and status tracking (Pending, Complete, Fail, Cancel).
-- **Payment Processing**: Integrates SSLCommerz for secure payments, handling initialization, success, failure, and cancellation scenarios.
-- **Email & OTP Notifications**: Sends OTPs for verification and templated emails for booking confirmations, account verifications, and updates.
-- **Admin Capabilities**: Allows admins to fetch all users, tours, bookings, and divisions with advanced querying (filtering, searching, sorting, pagination).
-- **Robust Error Handling**: Implements custom error handling with AppError, schema validation with Zod, and transactional operations for bookings/payments.
-- **Query Builder**: Provides a flexible QueryBuilder utility for dynamic data retrieval with filtering, searching, sorting, and pagination.
+```
+root
+├─ .gitignore
+├─ README.md (you’re reading this)
+├─ package.json / package‑lock.json
+├─ tsconfig.json
+├─ vercel.json                # Vercel deployment config
+├─ src/
+│   ├─ app.ts                 # Express app setup
+│   ├─ server.ts              # Entry point
+│   └─ app/
+│       ├─ config/            # cloudinary, multer, redis, passport
+│       ├─ errors/           # custom error classes & handlers
+│       ├─ middlewares/   # auth, validation, global error, 404
+│       ├─ modules/
+│       │   ├─ auth/          # auth controller/routes/service
+│       │   ├─ booking/
+│       │   ├─ division/
+│       │   ├─ otp/
+│       │   ├─ payment/
+│       │   ├─ sslCommerz/
+│       │   ├─ tour/
+│       │   └─ user/
+│       ├─ routes/          # root router that mounts all module routes
+│       └─ utils/          # helper utilities
+├─ dist/                     # compiled JavaScript (generated by `npm run build`)
+└─ src/app/interfaces/...  # TypeScript type definitions
+```
 
-## Technologies Used
-The project is built with a modern and reliable tech stack:
+---
 
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Database**: MongoDB with Mongoose ODM
-- **Authentication**: JSON Web Tokens (JWT), Bcrypt for password hashing, Passport.js (Local & Google OAuth)
-- **Payment Gateway**: SSLCommerz API
-- **Email Service**: Nodemailer with EJS templates for dynamic emails
-- **Caching**: Redis for OTP storage
-- **File Uploads**: Multer with Cloudinary for media storage
-- **Validation**: Zod for schema validation
-- **Utilities**: Axios, Cookie-Parser, CORS, Dotenv, Crypto for OTP generation
+## 📦 Core technologies  
 
-See `package.json` for a complete list of dependencies.
+| Category | Technology |
+|----------|-----------|
+| **Runtime** | Node.js (v18+) |
+| **Language** | TypeScript |
+| **Web framework** | Express |
+| **Database** | MongoDB (Mongoose ODM) |
+| **Authentication** | JWT + Passport |
+| **File storage** | Cloudinary (via `multer-storage-cloudinary`) |
+| **Cache / Session** | Redis |
+| **Email** | (custom implementation, likely nodemailer) |
+| **Payments** | SSL‑Commerz integration (custom service) |
+| **Validation** | Zod + Mongoose validation |
+| **Testing** | Postman collection |
+| **Deployment** | Vercel serverless functions |
+| **Package manager** | npm (or Yarn) |
 
-## Installation
-Follow these steps to set up and run the project locally:
+---
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/your-username/tour-travels-2.0.git
-   cd tour-travels-2.0
-   npm install
-## set .env file
+## 🚀 Quick start (development)
+
+```bash
+# Install dependencies
+npm install
+
+# Create a .env file (see .env.example) with:
+#   - MONGODB_URI
+#   - JWT_SECRET, JWT_REFRESH_SECRET
+#   - CLOUDNARY_* (cloudinary credentials)
+#   - RADIS_* (Redis credentials)
+#   - FRONTEND_URL (CORS origin)
+#   - etc.
+
+# Build the TypeScript source
+npm run build   # creates /dist
+
+# Run locally
+npm start       # runs compiled server (node dist/server.js)
+# Or for hot‑reloading during dev:
+npm run dev    # ts-node-dev src/server.ts
+```
+
+> **Note:** The repository already contains compiled JS in `/dist`. You can run `node dist/server.js` directly after installing dependencies, without building, if you prefer.
+
+---
+
+## 📦 Scripts
+
+| Command | Purpose |
+|--------|--------|
+| `npm run dev` | Run the server in dev mode (ts-node‑dev). |
+| `npm run build` | Compile TypeScript → `/dist`. |
+| `npm start` | Run compiled server (`node dist/server.js`). |
+| `npm test` | (Not defined) – add your own test suite. |
+| `npm lint` | (If lint configured). |
+
+---
+
+## 📚 API Overview  
+
+All routes are prefixed with **`/api/v1`**.
+
+| Module | Base path | Main endpoints |
+|------|----------|---------------|
+| **Auth** | `/auth` | `login`, `logout`, `refresh-token` (implementation in `auth.controller.ts`) |
+| **User** | `/user` | `POST /create`, `GET /get-me`, `GET /all-user` |
+| **Tour** | `/tour` | `POST /create-tour-type`, `POST /create-tour`, `GET /get-all-tour-type`, `GET /get-all-tour`, `GET /get-a-tour/:slug` |
+| **Division** | `/division` | `POST /create`, `GET /get-division`, `GET /get-a-division/:slug` |
+| **Booking** | `/booking` | `POST /create`, `GET /get-all-booking`, `GET /get-a-booking`, `DELETE /delete-booking/:bookingId` |
+| **Payment** | `/payment` | `POST /init-payment/:bookingId`, `POST /success`, `/fail`, `/cancel` |
+| **OTP** | `/otp` | `POST /send-otp`, `POST /verify-otp` |
+| **SSL‑Commerz** | (internal service) | Used by payment service for gateway integration |
+
+All protected routes use the `checkAuth(...roles)` middleware which verifies the JWT stored in cookies and checks the user role.
+
+---
+
+## 📄 Postman collection  
+
+The repository includes `Tour Travels 2.0.postman_collection.json`. Import it into Postman to test all endpoints (including required auth tokens).
+
+---
+
+## 🌐 Deploy to Vercel  
+
+The `vercel.json` file points to `src/server.ts`. After pushing to a Git repo connected to Vercel, the app will be automatically built (`npm run build`) and deployed as a serverless function.
+
+---
+
+## 🛠️ Extending the project  
+
+- **Add new modules**: create a folder under `src/app/modules`, export a router in `src/app/routes/index.ts`.  
+- **Add new middleware**: place it under `src/app/middlewares` and register in `globalErrorHandler`.  
+- **Add new utilities**: keep them under `src/app/utils`.  
+
+---
+
+## 🎉 Conclusion  
+
+The **Tour Travels 2.0 Server** provides a clean, well‑typed, and modular backend for a travel‑booking platform. It’s ready‑to‑run, easily extensible, and includes everything you need to start building a production‑grade service for tours, bookings, payments, and more. Feel free to fork, adapt, and deploy!

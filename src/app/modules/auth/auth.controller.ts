@@ -37,12 +37,12 @@ const credentialLogin = catchAsync(async (req, res, next) => {
 const logout = catchAsync(async (req, res, next) => {
   res.clearCookie("accessToken", {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
   });
   res.clearCookie("refreshToken", {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
   });
   sendResponse(res, {

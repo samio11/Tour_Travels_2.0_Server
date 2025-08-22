@@ -13,7 +13,7 @@ const routes_1 = require("./app/routes");
 const config_1 = __importDefault(require("./app/config"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: config_1.default.FRONTEND_URL, // e.g. "http://localhost:5173"
+    origin: config_1.default.FRONTEND_URL,
     credentials: true,
 }));
 app.use(express_1.default.json());

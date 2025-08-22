@@ -9,7 +9,7 @@ import config from "./app/config";
 const app: Application = express();
 app.use(
   cors({
-    origin: config.FRONTEND_URL as string, // e.g. "http://localhost:5173"
+    origin: config.FRONTEND_URL as string, 
     credentials: true,
   })
 );

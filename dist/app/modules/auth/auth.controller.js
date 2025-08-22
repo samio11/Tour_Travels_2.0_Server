@@ -58,12 +58,12 @@ const credentialLogin = (0, catchAsync_1.catchAsync)((req, res, next) => __await
 const logout = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     res.clearCookie("accessToken", {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: "lax",
     });
     res.clearCookie("refreshToken", {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: "lax",
     });
     (0, sendResponse_1.sendResponse)(res, {

@@ -58,6 +58,10 @@ const getATour = async (slug: string) => {
   }
   return tourExists;
 };
+const deleteATourType = async (id: string) => {
+  const deletedTour = await TourType.findByIdAndDelete(id);
+  return deletedTour;
+};
 
 export const tourServices = {
   createTourType,
@@ -66,4 +70,5 @@ export const tourServices = {
   createTour,
   getAllTour,
   getATour,
+  deleteATourType,
 };

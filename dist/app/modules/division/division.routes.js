@@ -10,4 +10,5 @@ const router = (0, express_1.Router)();
 router.post("/create", (0, checkAuth_1.checkAuth)(user_interface_1.Role.SUPER_ADMIN, user_interface_1.Role.ADMIN), multer_config_1.multerUpload.single("file"), division_controller_1.divisionController.createDivision);
 router.get("/get-division", division_controller_1.divisionController.getAllDivision);
 router.get("/get-a-division/:slug", division_controller_1.divisionController.getADivision);
+router.delete("/delete-a-division/:id", division_controller_1.divisionController.deleteDivision);
 exports.divisionRoutes = router;

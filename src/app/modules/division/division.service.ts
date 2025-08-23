@@ -30,4 +30,14 @@ const getADivision = async (slug: string) => {
   return divisionData;
 };
 
-export const divisionService = { createDivision, getAllDivision, getADivision };
+const deleteDivision = async (id: string) => {
+  const result = await Division.findByIdAndDelete(id);
+  return result;
+};
+
+export const divisionService = {
+  createDivision,
+  getAllDivision,
+  getADivision,
+  deleteDivision,
+};

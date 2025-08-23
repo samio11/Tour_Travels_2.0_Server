@@ -17,6 +17,11 @@ router.post(
   multerUpload.array("files"),
   tourControllers.createTour
 );
+router.delete(
+  "/delete-tour-type/:id",
+  checkAuth(Role.SUPER_ADMIN, Role.ADMIN),
+  tourControllers.deleteATourType
+);
 
 router.get("/get-all-tour-type", tourControllers.getAllTourType);
 router.get("/get-all-tour", tourControllers.getAllTour);

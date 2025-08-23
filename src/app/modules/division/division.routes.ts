@@ -14,5 +14,6 @@ router.post(
 );
 router.get("/get-division", divisionController.getAllDivision);
 router.get("/get-a-division/:slug", divisionController.getADivision);
+router.delete("/delete-a-division/:id", divisionController.deleteDivision);
 
 export const divisionRoutes = router;

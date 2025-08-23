@@ -66,6 +66,10 @@ const getATour = (slug) => __awaiter(void 0, void 0, void 0, function* () {
     }
     return tourExists;
 });
+const deleteATourType = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const deletedTour = yield tour_model_1.TourType.findByIdAndDelete(id);
+    return deletedTour;
+});
 exports.tourServices = {
     createTourType,
     getAllTourType,
@@ -73,4 +77,5 @@ exports.tourServices = {
     createTour,
     getAllTour,
     getATour,
+    deleteATourType,
 };

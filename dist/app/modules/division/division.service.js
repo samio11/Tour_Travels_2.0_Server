@@ -38,4 +38,13 @@ const getADivision = (slug) => __awaiter(void 0, void 0, void 0, function* () {
     }
     return divisionData;
 });
-exports.divisionService = { createDivision, getAllDivision, getADivision };
+const deleteDivision = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield division_model_1.Division.findByIdAndDelete(id);
+    return result;
+});
+exports.divisionService = {
+    createDivision,
+    getAllDivision,
+    getADivision,
+    deleteDivision,
+};

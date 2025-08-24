@@ -70,6 +70,10 @@ const deleteATourType = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const deletedTour = yield tour_model_1.TourType.findByIdAndDelete(id);
     return deletedTour;
 });
+const deleteATour = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const deletedTour = yield tour_model_1.Tour.findByIdAndDelete(id);
+    return deletedTour;
+});
 exports.tourServices = {
     createTourType,
     getAllTourType,
@@ -78,4 +82,5 @@ exports.tourServices = {
     getAllTour,
     getATour,
     deleteATourType,
+    deleteATour,
 };

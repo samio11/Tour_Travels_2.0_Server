@@ -83,6 +83,16 @@ const deleteATourType = (0, catchAsync_1.catchAsync)((req, res, next) => __await
         data: result,
     });
 }));
+const deleteATour = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req === null || req === void 0 ? void 0 : req.params;
+    const result = yield tour_services_1.tourServices.deleteATour(id);
+    (0, sendResponse_1.sendResponse)(res, {
+        statusCode: 200,
+        message: "A Tour Deleted",
+        success: true,
+        data: result,
+    });
+}));
 exports.tourControllers = {
     createTourType,
     getAllTourType,
@@ -91,4 +101,5 @@ exports.tourControllers = {
     getAllTour,
     getATour,
     deleteATourType,
+    deleteATour,
 };

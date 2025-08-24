@@ -22,6 +22,11 @@ router.delete(
   checkAuth(Role.SUPER_ADMIN, Role.ADMIN),
   tourControllers.deleteATourType
 );
+router.delete(
+  "/delete-tour/:id",
+  checkAuth(Role.SUPER_ADMIN, Role.ADMIN),
+  tourControllers.deleteATour
+);
 
 router.get("/get-all-tour-type", tourControllers.getAllTourType);
 router.get("/get-all-tour", tourControllers.getAllTour);
